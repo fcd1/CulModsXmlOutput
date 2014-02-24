@@ -14,8 +14,12 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     $modsTitleInfo = $this->_node->appendChild(new Mods_TitleInfo());
 
     $modsTitle = $modsTitleInfo->addTitle($titleText);
-    
-    // $titleInfo->appendChild(new Mods_Title($titleText));
+
+    $creatorText = metadata($item, array('Dublin Core', 'Creator'));
+
+    $modsName = $this->_node->appendChild(new Mods_Name());
+
+    $modsNamePart = $modsName->addNamePart($creatorText);
 
   }
 
