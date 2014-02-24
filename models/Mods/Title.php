@@ -1,5 +1,5 @@
 <?php
-class Mods_Title extends DOMElement
+class Mods_Title extends Mods_ModsElementAbstract
 {
   public function __construct($title = null)
   {

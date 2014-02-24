@@ -1,5 +1,5 @@
 <?php
-class Mods_Mods extends DOMElement
+class Mods_Mods extends Mods_ModsElementAbstract
 {
 
   protected $_foo;

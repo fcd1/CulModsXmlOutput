@@ -9,7 +9,7 @@
    The latter is not done in MARC 21. Names are expected to be in a structured 
    form (e.g. surname, forename).
   */
-class Mods_NamePart extends DOMElement
+class Mods_NamePart extends Mods_ModsElementAbstract
 {
   public function __construct($content)
   {

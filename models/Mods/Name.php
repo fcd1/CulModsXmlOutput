@@ -1,7 +1,7 @@
 <?php
   // attributes are set (setAttributeName), and 
   // subelements are added (addSubelementName)
-class Mods_Name extends DOMElement
+class Mods_Name extends Mods_ModsElementAbstract
 {
   public function __construct()
   {

@@ -1,5 +1,5 @@
 <?php
-class Mods_ModsCollection extends Mods_AbstractModsRootElement
+class Mods_ModsCollection extends Mods_ModsElementAbstract
 {
     protected function _buildNode()
     {
