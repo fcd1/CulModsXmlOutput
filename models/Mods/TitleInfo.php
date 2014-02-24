@@ -3,7 +3,6 @@
   // subelements are added (addSubelementName)
 class Mods_TitleInfo extends DOMElement
 {
-  // private static $allowedSubElements = array('
   public function __construct()
   {
     parent::__construct('titleInfo');
