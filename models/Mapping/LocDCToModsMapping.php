@@ -24,6 +24,10 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     $modsName = $this->_node->appendChild(new Mods_Name());
 
     $modsNamePart = $modsName->addNamePart($creatorText);
+
+    $modsRole = $modsName->appendChild(new Mods_Role());
+
+    $modsRole->addRoleTerm('creator','text');
     
   }
 
