@@ -5,7 +5,7 @@ class Mods_Name extends Mods_ModsElementAbstract
 {
   public function __construct()
   {
-    parent::__construct('Name');
+    parent::__construct('name');
   }
 
   public function addNamePart($namePartText)
