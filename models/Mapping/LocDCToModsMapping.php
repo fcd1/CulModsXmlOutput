@@ -9,39 +9,39 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
 
   protected function _mapTitle(Item $item)
   {
-    $titleText = metadata($item, array('Dublin Core', 'Title'));
+    $dcTitle = metadata($item, array('Dublin Core', 'Title'), array('all' => true));
 
-    $modsTitleInfo = $this->_node->appendChild(new Mods_TitleInfo());
-
-    $modsTitle = $modsTitleInfo->addTitle($titleText);
+    foreach ($dcTitle as $title) {
+      $modsTitleInfo = $this->_node->appendChild(new Mods_TitleInfo());
+      $modsTitle = $modsTitleInfo->addTitle($title);
+    }
 
   }
 
   protected function _mapCreator(Item $item)
   {
-    $creatorText = metadata($item, array('Dublin Core', 'Creator'));
+    $dcCreator = metadata($item, array('Dublin Core', 'Creator'), array('all' => true));
 
-    $modsName = $this->_node->appendChild(new Mods_Name());
-
-    $modsNamePart = $modsName->addNamePart($creatorText);
-
-    $modsRole = $modsName->appendChild(new Mods_Role());
-
-    $modsRole->addRoleTerm('creator','text');
+    foreach ($dcCreator as $creator) {
+      $modsName = $this->_node->appendChild(new Mods_Name());
+      $modsNamePart = $modsName->addNamePart($creator);
+      $modsRole = $modsName->appendChild(new Mods_Role());
+      $modsRole->addRoleTerm('creator','text');
+    }
     
   }
 
   protected function _mapSubject(Item $item)
   {
-    $subjectText = metadata($item, array('Dublin Core', 'Subject'));
+    $dcSubject = metadata($item, array('Dublin Core', 'Subject'), array('all' => true));
 
-    $modsSubject = $this->_node->appendChild(new Mods_Subject());
-
-    $modsTopic = $modsSubject->addTopic($subjectText);
-
-    // fcd1, 02/25/14:
-    // just for testing, use addTopic as the default
-    $modsGeographic = $modsSubject->addGeographic($subjectText);
+    foreach ($dcSubject as $subject) {
+      $modsSubject = $this->_node->appendChild(new Mods_Subject());
+      $modsTopic = $modsSubject->addTopic($subject);
+      // fcd1, 02/25/14:
+      // just for testing, use addTopic as the default
+      // $modsGeographic = $modsSubject->addGeographic($subject);
+    }
 
   }
 
