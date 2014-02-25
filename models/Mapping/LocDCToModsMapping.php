@@ -45,11 +45,22 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
 
   }
 
+  protected function _mapDescription(Item $item)
+  {
+    $dcDescription = metadata($item, array('Dublin Core', 'Description'), array('all' => true));
+
+    foreach ($dcDescription as $description) {
+      $modsNote = $this->_node->appendChild(new Mods_Note($description));
+      }
+
+  }
+
   protected function _map(Item $item)
   {
     $this->_mapTitle($item);
     $this->_mapCreator($item);
     $this->_mapSubject($item);
+    $this->_mapDescription($item);
   }
 
 }
