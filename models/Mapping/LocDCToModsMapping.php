@@ -31,10 +31,25 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     
   }
 
+  protected function _mapSubject(Item $item)
+  {
+    $subjectText = metadata($item, array('Dublin Core', 'Subject'));
+
+    $modsSubject = $this->_node->appendChild(new Mods_Subject());
+
+    $modsTopic = $modsSubject->addTopic($subjectText);
+
+    // fcd1, 02/25/14:
+    // just for testing, use addTopic as the default
+    $modsGeographic = $modsSubject->addGeographic($subjectText);
+
+  }
+
   protected function _map(Item $item)
   {
     $this->_mapTitle($item);
     $this->_mapCreator($item);
+    $this->_mapSubject($item);
   }
 
 }
