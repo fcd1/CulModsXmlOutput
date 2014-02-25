@@ -55,12 +55,36 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
 
   }
 
+  protected function _mapPublisher(Item $item)
+  {
+    $dcPublisher = metadata($item, array('Dublin Core', 'Publisher'), array('all' => true));
+
+    foreach ($dcPublisher as $publisher) {
+      $modsOriginInfo = $this->_node->appendChild(new Mods_OriginInfo());
+      $modsPublisher = $modsOriginInfo->addPublisher($publisher);
+      }
+
+  }
+
+  protected function _mapContributor(Item $item)
+  {
+    $dcContributor = metadata($item, array('Dublin Core', 'Contributor'), array('all' => true));
+
+    foreach ($dcContributor as $contributor) {
+      $modsName = $this->_node->appendChild(new Mods_Name());
+      $modsNamePart = $modsName->addNamePart($contributor);
+    }
+    
+  }
+
   protected function _map(Item $item)
   {
     $this->_mapTitle($item);
     $this->_mapCreator($item);
     $this->_mapSubject($item);
     $this->_mapDescription($item);
+    $this->_mapPublisher($item);
+    $this->_mapContributor($item);
   }
 
 }
