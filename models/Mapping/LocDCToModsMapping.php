@@ -7,6 +7,22 @@
 class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
 {
 
+  // fcd1, 02/25/14:
+  // The originInfo MODS elements contains subelements that map to different DC elements,
+  // therefore these subelements will be set at different times.
+  // However, these subelements should all be in the same instance of originInfo, instead
+  // of creating a new originInfo each time. Therefore, we will store the first (and only)
+  // originInfo that is created, and add subseqent subelements to it.
+  protected $_originInfo;
+
+  public function __construct(Item $item,
+                              $context,
+                              $onlyOneItem)
+  {
+    $this->_originInfo = null;
+    parent::__construct($item, $context, $onlyOneItem);
+  }
+
   protected function _mapTitle(Item $item)
   {
     $dcTitle = metadata($item, array('Dublin Core', 'Title'), array('all' => true));
@@ -59,9 +75,13 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
   {
     $dcPublisher = metadata($item, array('Dublin Core', 'Publisher'), array('all' => true));
 
+    // Check to see if we alread have an originInfo
+    if ( ($dcPublisher) && (!$this->_originInfo) ) {
+      $this->_originInfo = $this->_node->appendChild(new Mods_OriginInfo());
+    }
+
     foreach ($dcPublisher as $publisher) {
-      $modsOriginInfo = $this->_node->appendChild(new Mods_OriginInfo());
-      $modsPublisher = $modsOriginInfo->addPublisher($publisher);
+      $modsPublisher = $this->_originInfo->addPublisher($publisher);
       }
 
   }
