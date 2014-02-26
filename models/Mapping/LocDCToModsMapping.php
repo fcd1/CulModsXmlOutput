@@ -112,6 +112,16 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
 
   }
 
+  protected function _mapType(Item $item)
+  {
+    $dcType = metadata($item, array('Dublin Core', 'Type'), array('all' => true));
+
+    foreach ($dcType as $type) {
+      $modsGenre = $this->_node->appendChild(new Mods_Genre($type));
+    }
+    
+  }
+
   protected function _map(Item $item)
   {
     $this->_mapTitle($item);
@@ -121,6 +131,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     $this->_mapPublisher($item);
     $this->_mapContributor($item);
     $this->_mapDate($item);
+    $this->_mapType($item);
   }
 
 }
