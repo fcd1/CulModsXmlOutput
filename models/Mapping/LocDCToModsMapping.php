@@ -11,15 +11,21 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
   // The originInfo MODS elements contains subelements that map to different DC elements,
   // therefore these subelements will be set at different times.
   // However, these subelements should all be in the same instance of originInfo, instead
-  // of creating a new originInfo each time. Therefore, we will store the first (and only)
-  // originInfo that is created, and add subseqent subelements to it.
+  // of creating a new originInfo each time - though the MODS description does not explicitly
+  // disallow multiple instance of originInfo with a mods element, and the
+  // DLF/Aquifer Implementation Guidelines lists originInfo as repeatable.
+  // We will store the first (and only)originInfo that is created, and add subseqent subelements to it.
   protected $_originInfo;
+
+  // The DLF/Aquifer Implementation Guidelines lists physicalDescription as non-repeatable
+  protected $_physicalDescription;
 
   public function __construct(Item $item,
                               $context,
                               $onlyOneItem)
   {
     $this->_originInfo = null;
+    $this->_physicalDescription = null;
     parent::__construct($item, $context, $onlyOneItem);
   }
 
@@ -122,6 +128,21 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     
   }
 
+  protected function _mapFormat(Item $item)
+  {
+    $dcFormat = metadata($item, array('Dublin Core', 'Format'), array('all' => true));
+
+    // Check to see if we alread have an originInfo
+    if ( ($dcFormat) && (!$this->_physicalDescription) ) {
+      $this->_physicalDescription = $this->_node->appendChild(new Mods_PhysicalDescription());
+    }
+
+    foreach ($dcFormat as $format) {
+      $modsForm = $this->_physicalDescription->addForm($format);
+      }
+
+  }
+
   protected function _map(Item $item)
   {
     $this->_mapTitle($item);
@@ -132,6 +153,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     $this->_mapContributor($item);
     $this->_mapDate($item);
     $this->_mapType($item);
+    $this->_mapFormat($item);
   }
 
 }
