@@ -97,6 +97,21 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     
   }
 
+  protected function _mapDate(Item $item)
+  {
+    $dcDate = metadata($item, array('Dublin Core', 'Date'), array('all' => true));
+
+    // Check to see if we alread have an originInfo
+    if ( ($dcDate) && (!$this->_originInfo) ) {
+      $this->_originInfo = $this->_node->appendChild(new Mods_OriginInfo());
+    }
+
+    foreach ($dcDate as $date) {
+      $modsDateOther = $this->_originInfo->addDateOther($date);
+      }
+
+  }
+
   protected function _map(Item $item)
   {
     $this->_mapTitle($item);
@@ -105,6 +120,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     $this->_mapDescription($item);
     $this->_mapPublisher($item);
     $this->_mapContributor($item);
+    $this->_mapDate($item);
   }
 
 }

@@ -29,4 +29,18 @@ class Mods_OriginInfo extends Mods_ModsElementAbstract
     }
     return $publisherSubelement;
   }
+
+  public function addDateOther($dateOther)
+  {
+    if (!$dateOther) {
+      return null;
+    }
+
+    $dateOtherSubelement = new Mods_DateOther($dateOther);
+    if ($dateOtherSubelement) {
+      $this->appendChild($dateOtherSubelement);
+    }
+    return $dateOtherSubelement;
+  }
+
 }
