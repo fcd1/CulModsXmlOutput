@@ -225,6 +225,32 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
 
   }
   
+  protected function _mapCoverage(Item $item)
+  {
+
+    // Default mapping is to MODS <subject><geographic>, which may result in errors
+    // Unfortunately, no way, by default, to now if coverage is geographic or
+    // temporal
+
+    $dcCoverage = metadata($item, array('Dublin Core', 'Coverage'), array('all' => true));
+
+    foreach ($dcCoverage as $coverage) {
+      $modsSubject = $this->_node->appendChild(new Mods_Subject());
+      $modsGeographic = $modsSubject->addGeographic($coverage);
+    }
+
+  }
+  
+  protected function _mapRights(Item $item)
+  {
+    $dcRights = metadata($item, array('Dublin Core', 'Rights'), array('all' => true));
+
+    foreach ($dcRights as $rights) {
+      $modsAccessCondition = $this->_node->appendChild(new Mods_AccessCondition($rights));
+    }
+    
+  }
+
   protected function _map(Item $item)
   {
     $this->_mapTitle($item);
@@ -240,6 +266,8 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     $this->_mapSource($item);
     $this->_mapLanguage($item);
     $this->_mapRelation($item);
+    $this->_mapCoverage($item);
+    $this->_mapRights($item);
   }
 
 }
