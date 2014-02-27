@@ -186,7 +186,23 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
 
   }
 
+  protected function _mapLanguage(Item $item)
+  {
+    $dcLanguage = metadata($item, array('Dublin Core', 'Language'), array('all' => true));
 
+    // Assume each DC Language entry represents a new language, so create a new MODS
+    // language element (as opposed to a different representation of the same language -
+    // for example, another code from a different authority - which would then have
+    // to be mapped as a new MODS languageTerm in the same MODS language element)
+    // Also, as the default, assume the language is expressed as text (as opposed to
+    // a code form a given authority)
+    foreach ($dcLanguage as $language) {
+      $modsLanguage = $this->_node->appendChild(new Mods_Language($language,'text'));
+      $modsLanguage->addLanguageTerm($language,'text');
+    }
+    
+  }
+  
   protected function _map(Item $item)
   {
     $this->_mapTitle($item);
@@ -200,6 +216,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     $this->_mapFormat($item);
     $this->_mapIdentifier($item);
     $this->_mapSource($item);
+    $this->_mapLanguage($item);
   }
 
 }
