@@ -27,4 +27,32 @@ class Mods_PhysicalDescription extends Mods_ModsElementAbstract
     return $formSubelement;
   }
 
+  public function addDigitalOrigin($digitalOrigin)
+  {
+
+    if (!$digitalOrigin) {
+      return null;
+    }
+
+    // MODS element digitalOrigin can only have the following content
+    if ( ($digitalOrigin !== 'born digital')
+	 &&
+	 ($digitalOrigin !== 'reformatted digital')
+	 &&
+	 ($digitalOrigin !== 'digitized microfilm')
+	 &&
+	 ($digitalOrigin !== 'digitized other analog') ) {
+      return null;
+    }
+
+    $digitalOriginSubelement = new Mods_DigitalOrigin($digitalOrigin);
+
+    if ($digitalOriginSubelement) {
+      $this->appendChild($digitalOriginSubelement);
+    }
+
+    return $digitalOriginSubelement;
+
+  }
+
 }
