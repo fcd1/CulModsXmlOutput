@@ -143,6 +143,27 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
 
   }
 
+  // According to the Dublin Core Metadata Element Set Mapping to MODS Version 3
+  // (http://www.loc.gov/standards/mods/dcsimple-mods.html)
+  // a DC Identifier value that starts with 'http://' should map to MODS <location><url>
+  // by default (just default behavior specified by above document, not required).
+  // All other values we decided to map to MODS <identifier type='local'> by default,
+  // since we have no idea which standard or set of codes is used to generate the identifier
+  protected function _mapIdentifier(Item $item)
+  {
+    $dcIdentifier = metadata($item, array('Dublin Core', 'Identifier'), array('all' => true));
+
+    foreach ($dcIdentifier as $identifier) {
+      if (strpos($identifier,'http://') === 0) {
+	$modsLocation = $this->_node->appendChild(new Mods_Location());
+	$modsUrl = $modsLocation->addUrl($identifier);
+      } else {
+	$modsIdentifier = $this->_node->appendChild(new Mods_Identifier($identifier));
+	$modsIdentifier->setTypeAttribute('local');
+      }
+    }
+  }
+
   protected function _map(Item $item)
   {
     $this->_mapTitle($item);
@@ -154,6 +175,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     $this->_mapDate($item);
     $this->_mapType($item);
     $this->_mapFormat($item);
+    $this->_mapIdentifier($item);
   }
 
 }
