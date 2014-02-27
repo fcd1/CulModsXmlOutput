@@ -164,6 +164,29 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     }
   }
 
+  // Follows guidelines given in "Dublin Core Metadata Element Set Mapping
+  // to MODS Version 3"
+  // (http://www.loc.gov/standards/mods/dcsimple-mods.html)
+  protected function _mapSource(Item $item)
+  {
+    $dcSource = metadata($item, array('Dublin Core', 'Source'), array('all' => true));
+
+    foreach ($dcSource as $source) {
+
+      if (strpos($source,'http://') === 0) {
+	$modsLocation = $this->_node->appendChild(new Mods_Location());
+	$modsUrl = $modsLocation->addUrl($source);
+      } else {
+	$modsRelatedItem = $this->_node->appendChild(new Mods_RelatedItem());
+	$modsRelatedItem->setTypeAttribute('original');
+	$modsRelatedItem->addTitleInfo($source);
+      }
+    
+    }
+
+  }
+
+
   protected function _map(Item $item)
   {
     $this->_mapTitle($item);
@@ -176,6 +199,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     $this->_mapType($item);
     $this->_mapFormat($item);
     $this->_mapIdentifier($item);
+    $this->_mapSource($item);
   }
 
 }
