@@ -203,6 +203,28 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     
   }
   
+  protected function _mapRelation(Item $item)
+  {
+
+    // Default mapping is same as for DC Source, except the type of relatedItem does not
+    // have to be set to "original"
+
+    $dcRelation = metadata($item, array('Dublin Core', 'Relation'), array('all' => true));
+
+    foreach ($dcRelation as $relation) {
+
+      if (strpos($relation,'http://') === 0) {
+	$modsLocation = $this->_node->appendChild(new Mods_Location());
+	$modsUrl = $modsLocation->addUrl($relation);
+      } else {
+	$modsRelatedItem = $this->_node->appendChild(new Mods_RelatedItem());
+	$modsRelatedItem->addTitleInfo($relation);
+      }
+    
+    }
+
+  }
+  
   protected function _map(Item $item)
   {
     $this->_mapTitle($item);
@@ -217,6 +239,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     $this->_mapIdentifier($item);
     $this->_mapSource($item);
     $this->_mapLanguage($item);
+    $this->_mapRelation($item);
   }
 
 }
