@@ -136,6 +136,7 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
   protected function _map(Item $item)
   {
 
+    $this->_createRecordInfo($item);
     $this->_mapDCTitle($item);
     $this->_mapDCCreator($item);
     $this->_mapDCSubject($item);
@@ -157,7 +158,6 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     $this->_mapCulModsPlaceOfOrigin($item);
     $this->_mapCulModsKeyDate($item);
     $this->_mapOmekaItemId($item);
-    $this->_createRecordInfo($item);
     
   }
 
