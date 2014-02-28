@@ -23,6 +23,9 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
   // Seems to make sense that there should be only one location
   protected $_location;
 
+  // The DLF/Aquifer Implementation Guidelines lists recordInfo as non-repeatable
+  protected $_recordInfo;
+
   public function __construct(Item $item,
                               $context,
                               $onlyOneItem)
@@ -259,6 +262,19 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     
   }
 
+  // The DLF/Aquifer Implementation Guidelines lists recordInfo as required and
+  // non-repeatable.
+  // Probably not going to populate it with info retrieved from the item,
+  // but the item will be passed in as an argument just in case
+  protected function _createRecordInfo(Item $item)
+  {
+
+    // Check to see if we alread have a location
+    if (!$this->_recordInfo) {
+      $this->_recordInfo = $this->_node->appendChild(new Mods_RecordInfo());
+    }    
+  }
+
   protected function _map(Item $item)
   {
     $this->_mapDCTitle($item);
@@ -276,6 +292,8 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     $this->_mapDCRelation($item);
     $this->_mapDCCoverage($item);
     $this->_mapDCRights($item);
+    $this->_createRecordInfo($item);
+
   }
 
 }
