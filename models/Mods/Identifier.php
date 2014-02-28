@@ -23,4 +23,12 @@ class Mods_Identifier extends Mods_ModsElementAbstract
     return $value;
   }
 	
+  public function setDisplayLabelAttribute($value)
+  {
+    if ($value) {
+      $this->setAttribute('displayLabel',$value);
+    }
+    return $value;
+  }
+	
 }

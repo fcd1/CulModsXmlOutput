@@ -109,7 +109,19 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
       }
 
     }
+
   }
+
+  protected function _mapOmekaItemId(Item $item)
+  {
+
+    $omekaId = metadata($item,'ID');
+    $modsIdentifier = $this->_node->appendChild(new Mods_Identifier($omekaId));
+    $modsIdentifier->setTypeAttribute('local');
+    $modsIdentifier->setDisplayLabelAttribute('Omeka ID');
+    
+  }
+
 
   protected function _map(Item $item)
   {
@@ -134,6 +146,7 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     $this->_mapCulModsNotes($item);
     $this->_mapCulModsPlaceOfOrigin($item);
     $this->_mapCulModsKeyDate($item);
+    $this->_mapOmekaItemId($item);
 
   }
 
