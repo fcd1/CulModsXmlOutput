@@ -51,4 +51,22 @@ class Mods_Location extends Mods_ModsElementAbstract
 
   }
 
+  public function addPhysicalLocation($physicalLocation)
+  {
+
+
+    if (!$physicalLocation) {
+      return null;
+    }
+
+    $physicalLocationSubelement = new Mods_PhysicalLocation($physicalLocation);
+
+    if ($physicalLocationSubelement) {
+      $this->appendChild($physicalLocationSubelement);
+    }
+
+    return $physicalLocationSubelement;
+
+  }
+
 }

@@ -133,6 +133,24 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     $this->_recordInfo->addLanguageOfCataloging('eng','code','iso639-2b');
   }
 
+  // fcd1, 02/27/14: still fuzzy if we can or cannot have multiple location elements
+  // Gotta look into it. For now, code as if we can only have one.
+  protected function _mapCulModsRepositoryName(Item $item)
+  {
+
+    $culModsRepositoryName = metadata($item, array('MODS', 'Repository Name'), array('all' => true));
+
+    // Check to see if we already have an location
+    if ( ($culModsRepositoryName) && (!$this->_location) ) {
+      $this->_location = $this->_node->appendChild(new Mods_Location());
+    }
+
+    foreach ($culModsRepositoryName as $repositoryName) {
+      $modsPhysicalLocation = $this->_location->addPhysicalLocation($repositoryName);
+    }
+  
+  }
+
   protected function _map(Item $item)
   {
 
@@ -158,6 +176,7 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     $this->_mapCulModsPlaceOfOrigin($item);
     $this->_mapCulModsKeyDate($item);
     $this->_mapOmekaItemId($item);
+    $this->_mapCulModsRepositoryName($item);
     
   }
 
