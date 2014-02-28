@@ -32,7 +32,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     parent::__construct($item, $context, $onlyOneItem);
   }
 
-  protected function _mapTitle(Item $item)
+  protected function _mapDCTitle(Item $item)
   {
     $dcTitle = metadata($item, array('Dublin Core', 'Title'), array('all' => true));
 
@@ -43,7 +43,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
 
   }
 
-  protected function _mapCreator(Item $item)
+  protected function _mapDCCreator(Item $item)
   {
     $dcCreator = metadata($item, array('Dublin Core', 'Creator'), array('all' => true));
 
@@ -56,7 +56,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     
   }
 
-  protected function _mapSubject(Item $item)
+  protected function _mapDCSubject(Item $item)
   {
     $dcSubject = metadata($item, array('Dublin Core', 'Subject'), array('all' => true));
 
@@ -70,7 +70,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
 
   }
 
-  protected function _mapDescription(Item $item)
+  protected function _mapDCDescription(Item $item)
   {
     $dcDescription = metadata($item, array('Dublin Core', 'Description'), array('all' => true));
 
@@ -80,7 +80,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
 
   }
 
-  protected function _mapPublisher(Item $item)
+  protected function _mapDCPublisher(Item $item)
   {
     $dcPublisher = metadata($item, array('Dublin Core', 'Publisher'), array('all' => true));
 
@@ -95,7 +95,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
 
   }
 
-  protected function _mapContributor(Item $item)
+  protected function _mapDCContributor(Item $item)
   {
     $dcContributor = metadata($item, array('Dublin Core', 'Contributor'), array('all' => true));
 
@@ -106,7 +106,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     
   }
 
-  protected function _mapDate(Item $item)
+  protected function _mapDCDate(Item $item)
   {
     $dcDate = metadata($item, array('Dublin Core', 'Date'), array('all' => true));
 
@@ -121,7 +121,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
 
   }
 
-  protected function _mapType(Item $item)
+  protected function _mapDCType(Item $item)
   {
     $dcType = metadata($item, array('Dublin Core', 'Type'), array('all' => true));
 
@@ -131,7 +131,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     
   }
 
-  protected function _mapFormat(Item $item)
+  protected function _mapDCFormat(Item $item)
   {
     $dcFormat = metadata($item, array('Dublin Core', 'Format'), array('all' => true));
 
@@ -152,7 +152,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
   // by default (just default behavior specified by above document, not required).
   // All other values we decided to map to MODS <identifier type='local'> by default,
   // since we have no idea which standard or set of codes is used to generate the identifier
-  protected function _mapIdentifier(Item $item)
+  protected function _mapDCIdentifier(Item $item)
   {
     $dcIdentifier = metadata($item, array('Dublin Core', 'Identifier'), array('all' => true));
 
@@ -175,7 +175,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
   // Follows guidelines given in "Dublin Core Metadata Element Set Mapping
   // to MODS Version 3"
   // (http://www.loc.gov/standards/mods/dcsimple-mods.html)
-  protected function _mapSource(Item $item)
+  protected function _mapDCSource(Item $item)
   {
     $dcSource = metadata($item, array('Dublin Core', 'Source'), array('all' => true));
 
@@ -194,7 +194,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
 
   }
 
-  protected function _mapLanguage(Item $item)
+  protected function _mapDCLanguage(Item $item)
   {
     $dcLanguage = metadata($item, array('Dublin Core', 'Language'), array('all' => true));
 
@@ -211,7 +211,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     
   }
   
-  protected function _mapRelation(Item $item)
+  protected function _mapDCRelation(Item $item)
   {
 
     // Default mapping is same as for DC Source, except the type of relatedItem does not
@@ -233,7 +233,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
 
   }
   
-  protected function _mapCoverage(Item $item)
+  protected function _mapDCCoverage(Item $item)
   {
 
     // Default mapping is to MODS <subject><geographic>, which may result in errors
@@ -249,7 +249,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
 
   }
   
-  protected function _mapRights(Item $item)
+  protected function _mapDCRights(Item $item)
   {
     $dcRights = metadata($item, array('Dublin Core', 'Rights'), array('all' => true));
 
@@ -261,21 +261,21 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
 
   protected function _map(Item $item)
   {
-    $this->_mapTitle($item);
-    $this->_mapCreator($item);
-    $this->_mapSubject($item);
-    $this->_mapDescription($item);
-    $this->_mapPublisher($item);
-    $this->_mapContributor($item);
-    $this->_mapDate($item);
-    $this->_mapType($item);
-    $this->_mapFormat($item);
-    $this->_mapIdentifier($item);
-    $this->_mapSource($item);
-    $this->_mapLanguage($item);
-    $this->_mapRelation($item);
-    $this->_mapCoverage($item);
-    $this->_mapRights($item);
+    $this->_mapDCTitle($item);
+    $this->_mapDCCreator($item);
+    $this->_mapDCSubject($item);
+    $this->_mapDCDescription($item);
+    $this->_mapDCPublisher($item);
+    $this->_mapDCContributor($item);
+    $this->_mapDCDate($item);
+    $this->_mapDCType($item);
+    $this->_mapDCFormat($item);
+    $this->_mapDCIdentifier($item);
+    $this->_mapDCSource($item);
+    $this->_mapDCLanguage($item);
+    $this->_mapDCRelation($item);
+    $this->_mapDCCoverage($item);
+    $this->_mapDCRights($item);
   }
 
 }

@@ -74,21 +74,21 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
   protected function _map(Item $item)
   {
 
-    $this->_mapTitle($item);
-    $this->_mapCreator($item);
-    $this->_mapSubject($item);
-    $this->_mapDescription($item);
-    $this->_mapPublisher($item);
-    $this->_mapContributor($item);
-    $this->_mapDate($item);
-    $this->_mapType($item);
-    $this->_mapFormat($item);
-    $this->_mapIdentifier($item);
-    $this->_mapSource($item);
-    $this->_mapLanguage($item);
-    $this->_mapRelation($item);
-    $this->_mapCoverage($item);
-    $this->_mapRights($item);
+    $this->_mapDCTitle($item);
+    $this->_mapDCCreator($item);
+    $this->_mapDCSubject($item);
+    $this->_mapDCDescription($item);
+    $this->_mapDCPublisher($item);
+    $this->_mapDCContributor($item);
+    $this->_mapDCDate($item);
+    $this->_mapDCType($item);
+    $this->_mapDCFormat($item);
+    $this->_mapDCIdentifier($item);
+    $this->_mapDCSource($item);
+    $this->_mapDCLanguage($item);
+    $this->_mapDCRelation($item);
+    $this->_mapDCCoverage($item);
+    $this->_mapDCRights($item);
     $this->_mapCulModsDigitalOrigin($item);
     $this->_mapCulModsShelfLocation($item);
     $this->_mapCulModsNotes($item);
