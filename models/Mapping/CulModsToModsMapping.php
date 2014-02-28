@@ -166,6 +166,21 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
   
   }
 
+  protected function _mapCulModsFormGenre(Item $item)
+  {
+    $culModsFormGenre = metadata($item, array('MODS', 'Form/Genre'), array('all' => true));
+
+    // Check to see if we alread have an originInfo
+    if ( ($culModsFormGenre) && (!$this->_physicalDescription) ) {
+      $this->_physicalDescription = $this->_node->appendChild(new Mods_PhysicalDescription());
+    }
+
+    foreach ($culModsFormGenre as $formGenre) {
+      $modsForm = $this->_physicalDescription->addForm($formGenre);
+      }
+
+  }
+
   protected function _map(Item $item)
   {
 
@@ -193,6 +208,7 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     $this->_mapCulModsKeyDate($item);
     $this->_mapCulModsRepositoryName($item);
     $this->_mapCulModsPhysicalDescription($item);
+    $this->_mapCulModsFormGenre($item);
     
   }
 
