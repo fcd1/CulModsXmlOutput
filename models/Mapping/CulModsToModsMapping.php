@@ -151,6 +151,21 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
   
   }
 
+  protected function _mapCulModsPhysicalDescription(Item $item)
+  {
+    $culModsPhysicalDescription = metadata($item, array('MODS', 'Physical Description'), array('all' => true));
+
+    // Check to see if we already have a physical description
+    if ( ($culModsPhysicalDescription) && (!$this->_physicalDescription) ) {
+      $this->_physicalDescription = $this->_node->appendChild(new Mods_PhysicalDescription());
+    }
+
+    foreach ($culModsPhysicalDescription as $physicalDescription) {
+      $modsExtent = $this->_physicalDescription->addExtent($physicalDescription);
+    }
+  
+  }
+
   protected function _map(Item $item)
   {
 
@@ -177,6 +192,7 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     $this->_mapCulModsPlaceOfOrigin($item);
     $this->_mapCulModsKeyDate($item);
     $this->_mapCulModsRepositoryName($item);
+    $this->_mapCulModsPhysicalDescription($item);
     
   }
 

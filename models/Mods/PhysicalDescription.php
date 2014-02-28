@@ -55,4 +55,17 @@ class Mods_PhysicalDescription extends Mods_ModsElementAbstract
 
   }
 
+  public function addExtent($extent)
+  {
+    if (!$extent) {
+      return null;
+    }
+
+    $extentSubelement = new Mods_Extent($extent);
+    if ($extentSubelement) {
+      $this->appendChild($extentSubelement);
+    }
+    return $extentSubelement;
+  }
+
 }
