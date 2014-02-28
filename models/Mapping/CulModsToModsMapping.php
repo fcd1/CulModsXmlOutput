@@ -118,6 +118,20 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     
   }
 
+  // The DLF/Aquifer Implementation Guidelines lists recordInfo as required and
+  // non-repeatable.
+  // Probably not going to populate it with info retrieved from the item,
+  // but the item will be passed in as an argument just in case
+  protected function _createRecordInfo(Item $item)
+  {
+
+    // Check to see if we alread have a location
+    if (!$this->_recordInfo) {
+      $this->_recordInfo = $this->_node->appendChild(new Mods_RecordInfo());
+    }
+
+    $this->_recordInfo->addLanguageOfCataloging('eng','code','iso639-2b');
+  }
 
   protected function _map(Item $item)
   {
@@ -144,7 +158,7 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     $this->_mapCulModsKeyDate($item);
     $this->_mapOmekaItemId($item);
     $this->_createRecordInfo($item);
-
+    
   }
 
 }

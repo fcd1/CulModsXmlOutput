@@ -33,5 +33,27 @@ class Mods_LanguageTerm extends Mods_ModsElementAbstract
     $this->setAttribute('type',$value);
     return $value;
   }
+
+  public function setAuthorityAttribute($value)
+  {
+    // type attribute for the languageTerm element can only
+    // be set to 'text' or 'code'
+    if ( ($value !== 'iso639-2b')
+	 &&
+	 ($value !== 'rfc3066')
+	 &&
+	 ($value !== 'iso639-3')
+	 &&
+	 ($value !== 'rfc4646') )
+      {
+	// for now, just return null.
+	// later, may want to add mechanism (exception?)
+	// to notify caller that value was invalid
+	return null;
+      }
+
+    $this->setAttribute('authority',$value);
+    return $value;
+  }
 	
 }

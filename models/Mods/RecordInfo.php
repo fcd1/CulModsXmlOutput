@@ -15,20 +15,27 @@ class Mods_RecordInfo extends Mods_ModsElementAbstract
     parent::__construct('recordInfo');
   }
 
-  /*
-
-  public function addPublisher($publisher)
+  public function addLanguageOfCataloging($language,
+					  $languageTermTypeAttribute = null,
+					  $languageTermAuthorityAttribute = null)
   {
-    if (!$publisher) {
+    if (!$language) {
       return null;
     }
 
-    $publisherSubelement = new Mods_Publisher($publisher);
-    if ($publisherSubelement) {
-      $this->appendChild($publisherSubelement);
+    $languageOfCatalogingSubelement = new Mods_LanguageOfCataloging();
+
+    if ($languageOfCatalogingSubelement) {
+      $this->appendChild($languageOfCatalogingSubelement);
+      $languageOfCatalogingSubelement->addLanguageTerm($language,
+						       $languageTermTypeAttribute,
+						       $languageTermAuthorityAttribute);
     }
-    return $publisherSubelement;
+
+    return $languageOfCatalogingSubelement;
   }
+
+  /*
 
   public function addDateOther($dateOther)
   {
