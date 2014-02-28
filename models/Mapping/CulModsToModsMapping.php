@@ -54,6 +54,23 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
   
   }
 
+  protected function _mapCulModsPlaceOfOrigin(Item $item)
+  {
+
+    $culModsPlaceOfOrigin = metadata($item, array('MODS', 'Place of Origin'), array('all' => true));
+
+    // Check to see if we already have an location
+    if ( ($culModsPlaceOfOrigin) && (!$this->_originInfo) ) {
+      $this->_originInfo = $this->_node->appendChild(new Mods_OriginInfo());
+    }
+
+    foreach ($culModsPlaceOfOrigin as $placeOfOrigin) {
+      $modsPlace = $this->_originInfo->appendChild(new Mods_Place());
+      $modsPlace->addPlaceTerm($placeOfOrigin,'text');
+    }
+
+  }
+
   protected function _map(Item $item)
   {
 
@@ -75,6 +92,7 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     $this->_mapCulModsDigitalOrigin($item);
     $this->_mapCulModsShelfLocation($item);
     $this->_mapCulModsNotes($item);
+    $this->_mapCulModsPlaceOfOrigin($item);
 
   }
 
