@@ -43,4 +43,41 @@ class Mods_OriginInfo extends Mods_ModsElementAbstract
     return $dateOtherSubelement;
   }
 
+  public function addDateCreated($dateCreated,
+				 $encodingAttributeValue = null,
+				 $pointAttributeValue = null,
+				 $keyDateAttributeValue = null,
+				 $qualifierAttributeValue = null)
+  {
+    if (!$dateCreated) {
+      return null;
+    }
+
+    $dateCreatedSubelement = new Mods_DateCreated($dateCreated);
+
+    if (!$dateCreatedSubelement) {
+      return null;
+    }
+
+    $this->appendChild($dateCreatedSubelement);
+
+    if ($encodingAttributeValue) {
+      $dateCreatedSubelement->setEncodingAttribute($encodingAttributeValue);
+    }
+
+    if ($pointAttributeValue) {
+      $dateCreatedSubelement->setPointAttribute($pointAttributeValue);
+    }
+
+    if ($keyDateAttributeValue) {
+      $dateCreatedSubelement->setKeyDateAttribute($keyDateAttributeValue);
+    }
+
+    if ($qualifierAttributeValue) {
+      $dateCreatedSubelement->setQualifierAttribute($qualifierAttributeValue);
+    }
+
+    return $dateCreatedSubelement;
+  }
+
 }

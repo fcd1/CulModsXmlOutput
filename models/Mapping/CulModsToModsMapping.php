@@ -71,6 +71,46 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
 
   }
 
+  protected function _mapCulModsKeyDate(Item $item)
+  {
+    $culModsKeyDate = metadata($item, array('MODS', 'Key Date'), array('all' => true));
+
+    // Check to see if we alread have an originInfo
+    // fcd1, 02/28/14:
+    // Check wiht Melanie and Robbie to make sure we don't want this in a 
+    // new originInfo
+    if ( ($culModsKeyDate) && (!$this->_originInfo) ) {
+      $this->_originInfo = $this->_node->appendChild(new Mods_OriginInfo());
+    }
+
+    foreach ($culModsKeyDate as $keyDate) {
+      // Get start date and, if present, end date
+      // Assumption is that each date will be in the format YYYY-MM-DD
+      // and the dates will be separated by a space
+      // fcd1, 02/28/14:
+      // Probably want to add some checking on the date format before
+      // setting the encoding attribute. Do this if I have time
+      $keyDates = explode(" ", $keyDate);
+
+      // $modsDateCreated = $this->_originInfo->addDateCreated($keyDate);
+
+      if (isset($keyDates[0]) ) {
+
+
+	$modsDateCreated = $this->_originInfo->addDateCreated($keyDates[0],
+							      'w3cdtf',
+							      'start');
+      }
+
+      if (isset($keyDates[1]) ) {
+	$modsDateCreated = $this->_originInfo->addDateCreated($keyDates[1],
+							      'w3cdtf',
+							      'end');
+      }
+
+    }
+  }
+
   protected function _map(Item $item)
   {
 
@@ -93,6 +133,7 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     $this->_mapCulModsShelfLocation($item);
     $this->_mapCulModsNotes($item);
     $this->_mapCulModsPlaceOfOrigin($item);
+    $this->_mapCulModsKeyDate($item);
 
   }
 
