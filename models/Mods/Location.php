@@ -33,4 +33,22 @@ class Mods_Location extends Mods_ModsElementAbstract
 
   }
 
+  public function addShelfLocator($shelfLocator)
+  {
+
+    if (!$shelfLocator) {
+      return null;
+    }
+
+
+    $shelfLocatorSubelement = new Mods_ShelfLocator($shelfLocator);
+
+    if ($shelfLocatorSubelement) {
+      $this->appendChild($shelfLocatorSubelement);
+    }
+
+    return $shelfLocatorSubelement;
+
+  }
+
 }

@@ -20,6 +20,9 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
   // The DLF/Aquifer Implementation Guidelines lists physicalDescription as non-repeatable
   protected $_physicalDescription;
 
+  // Seems to make sense that there should be only one location
+  protected $_location;
+
   public function __construct(Item $item,
                               $context,
                               $onlyOneItem)
@@ -155,8 +158,13 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
 
     foreach ($dcIdentifier as $identifier) {
       if (strpos($identifier,'http://') === 0) {
-	$modsLocation = $this->_node->appendChild(new Mods_Location());
-	$modsUrl = $modsLocation->addUrl($identifier);
+	
+	// Check to see if we alread have a location
+	if ( ($dcIdentifier) && (!$this->_location) ) {
+	  $this->_location = $this->_node->appendChild(new Mods_Location());
+	}
+
+	$modsUrl = $this->_location->addUrl($identifier);
       } else {
 	$modsIdentifier = $this->_node->appendChild(new Mods_Identifier($identifier));
 	$modsIdentifier->setTypeAttribute('local');
