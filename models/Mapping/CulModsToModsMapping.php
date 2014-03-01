@@ -181,6 +181,79 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
 
   }
 
+  protected function _mapItemTypeMetadataItemType(Item $item)
+  {
+
+    // $itemType = metadata($item, array('Item Type Metadata', 'Item Type'));
+    // $itemType = $item->Type[0];
+    // $itemType = 'foo';
+    $resultsArray = array();
+
+    // fcd1, 02/28/14 BEGIN =>
+    // Got the following piece of code form the Modsoutput
+    // plugin. Why it works I'm not sure, but it does, and I 
+    // have not yet figured out a better way. If I can't, I
+    // should move this to a helper method
+    foreach($item->Type as $itemType)
+      $resultsArray[] = $itemType;
+    $itemType =  $resultsArray[0];
+    // <= END 02/28/14, fcd1
+
+    // fcd1, 02/28/14:
+    // May want to give it a default allowed value. However, the
+    // possible input values for $itemType are preset, so as long
+    // as all preset values are covered, $typeOfResourceContent
+    // will be set. If Item Type was never set in Omeka, we
+    // won't include a MODS typeOfResource element.
+    $typeOfResourceContent = null;
+
+    // Map Item Type to allowed content for MODS typeOfResource
+    switch ($itemType) {
+    case "Document":
+      $typeOfResourceContent = 'text';
+      break;
+    case "Moving Image":
+      $typeOfResourceContent = 'moving image';
+      break;
+    case "Oral History":
+      $typeOfResourceContent = 'mixed media';
+      break;
+    case "Sound":
+      $typeOfResourceContent = 'sound recording';
+      break;
+    case "Still Image":
+      $typeOfResourceContent = 'still image';
+      break;
+    case "website":
+      $typeOfResourceContent = 'still image';
+      break;
+    case "Event":
+      $typeOfResourceContent = 'mixed media';
+      break;
+    case "Email":
+      $typeOfResourceContent = 'text';
+      break;
+    case "Lesson Plan":
+      $typeOfResourceContent = 'mixed media';
+      break;
+    case "Hyperlink":
+      $typeOfResourceContent = 'text';
+      break;
+      // fcd1, 02/28/14: CLARIFY BELOW
+    case "Person":
+      $typeOfResourceContent = 'multimedia???';
+      break;
+    case "Interactive Resource":
+      $typeOfResourceContent = 'software, multimedia';
+      break;
+    }
+
+    if ($typeOfResourceContent) {
+      $modsTypeOfResource = $this->_node->appendChild(new Mods_TypeOfResource($typeOfResourceContent));
+    }
+  
+  }
+
   protected function _map(Item $item)
   {
 
@@ -209,6 +282,7 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     $this->_mapCulModsRepositoryName($item);
     $this->_mapCulModsPhysicalDescription($item);
     $this->_mapCulModsFormGenre($item);
+    $this->_mapItemTypeMetadataItemType($item);
     
   }
 
