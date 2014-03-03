@@ -295,9 +295,7 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
   
   }
 
-  // Probably not going to populate it with info retrieved from the item,
-  // but the item will be passed in as an argument just in case
-  protected function _createRelatedItemProject(Item $item)
+  protected function _MapOmekaCollectionTitle(Item $item)
   {
 
     $collectionObject = get_collection_for_item($item);
@@ -347,7 +345,7 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     $this->_mapCulModsCollection($item);
     $this->_mapAddtionalItemMetadataProvenance($item);
     $this->_mapAddtionalItemMetadataSpatialCoverage($item);
-    $this->_createRelatedItemProject($item);
+    $this->_mapOmekaCollectionTitle($item);
 
   }
 
