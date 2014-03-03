@@ -6,8 +6,21 @@
   */
 class Mods_Note extends Mods_ModsElementAbstract
 {
+
   public function __construct($content)
   {
     parent::__construct('note',$content);
   }
+
+  public function setTypeAttribute($value)
+  {
+
+    if ($value) {
+      $this->setAttribute('type',$value);
+    }
+
+    return $value;
+
+  }
+
 }

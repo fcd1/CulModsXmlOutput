@@ -267,6 +267,20 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     
   }
 
+  protected function _mapAddtionalItemMetadataProvenance(Item $item)
+  {
+
+    $additionalItemMetadataProvenance = metadata($item,
+						 array('Additional Item Metadata', 'Provenance'),
+						 array('all' => true));
+
+    foreach ($additionalItemMetadataProvenance as $provenance) {
+      $modsNote = $this->_node->appendChild(new Mods_Note($provenance));
+      $modsNote->setTypeAttribute('ownership');
+    }
+  
+  }
+
   protected function _map(Item $item)
   {
 
@@ -297,7 +311,7 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     $this->_mapCulModsFormGenre($item);
     $this->_mapItemTypeMetadataItemType($item);
     $this->_mapCulModsCollection($item);
-    
+    $this->_mapAddtionalItemMetadataProvenance($item);
   }
 
 }
