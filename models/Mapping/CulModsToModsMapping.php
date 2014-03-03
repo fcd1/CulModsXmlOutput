@@ -313,6 +313,33 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
 
   }
 
+
+  // NOTE: this function will loop through all the uploaded files
+  // for the item. However, it will not repeat a mime type that
+  // has already been encountered.
+  protected function _MapItemFileMimeType(Item $item)
+  {
+
+    $itemFiles = $item->Files;
+
+    if ( ($itemFiles) && (!$this->_physicalDescription) ) {
+      $this->_physicalDescription = $this->_node->appendChild(new Mods_PhysicalDescription());
+    }
+
+    $mimeTypesForThisFile = array();
+
+    foreach ($itemFiles as $file) {
+      $mimeType = $file->mime_type;
+      
+      if (!in_array($mimeType,$mimeTypesForThisFile)) {
+	$mimeTypesForThisFile[] = $mimeType;
+	$modsInternetMedyaType = $this->_physicalDescription->appendChild(new Mods_InternetMediaType($mimeType));
+      }
+
+    }
+
+  }
+
   protected function _map(Item $item)
   {
 
@@ -346,6 +373,7 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     $this->_mapAddtionalItemMetadataProvenance($item);
     $this->_mapAddtionalItemMetadataSpatialCoverage($item);
     $this->_mapOmekaCollectionTitle($item);
+    $this->_MapItemFileMimeType($item);
 
   }
 
