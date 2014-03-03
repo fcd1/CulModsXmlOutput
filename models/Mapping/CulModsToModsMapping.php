@@ -340,6 +340,20 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
 
   }
 
+  protected function _createRecordOrigin()
+  {
+
+    // Check to see if we alread have a recordInfo
+    // The DLF/Aquifer Implementation Guidelines lists recordInfo as required and
+    // non-repeatable.
+    if (!$this->_recordInfo) {
+      $this->_recordInfo = $this->_node->appendChild(new Mods_RecordInfo());
+    }
+
+    $this->_recordInfo->addRecordOrigin('MODS record conforms to the DLF Implementation Guidelines for Shareable MODS records, Version 3.4');
+
+  }
+
   protected function _map(Item $item)
   {
 
@@ -374,6 +388,7 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     $this->_mapAddtionalItemMetadataSpatialCoverage($item);
     $this->_mapOmekaCollectionTitle($item);
     $this->_MapItemFileMimeType($item);
+    $this->_createRecordOrigin();
 
   }
 

@@ -35,58 +35,21 @@ class Mods_RecordInfo extends Mods_ModsElementAbstract
     return $languageOfCatalogingSubelement;
   }
 
-  /*
 
-  public function addDateOther($dateOther)
+  public function addRecordOrigin($recordOriginContent)
   {
-    if (!$dateOther) {
+    if (!$recordOriginContent) {
       return null;
     }
 
-    $dateOtherSubelement = new Mods_DateOther($dateOther);
-    if ($dateOtherSubelement) {
-      $this->appendChild($dateOtherSubelement);
+    $recordOrigin = new Mods_RecordOrigin($recordOriginContent);
+
+    if ($recordOrigin) {
+      $this->appendChild($recordOrigin);
     }
-    return $dateOtherSubelement;
+
+    return $recordOrigin;
+
   }
-
-  public function addDateCreated($dateCreated,
-				 $encodingAttributeValue = null,
-				 $pointAttributeValue = null,
-				 $keyDateAttributeValue = null,
-				 $qualifierAttributeValue = null)
-  {
-    if (!$dateCreated) {
-      return null;
-    }
-
-    $dateCreatedSubelement = new Mods_DateCreated($dateCreated);
-
-    if (!$dateCreatedSubelement) {
-      return null;
-    }
-
-    $this->appendChild($dateCreatedSubelement);
-
-    if ($encodingAttributeValue) {
-      $dateCreatedSubelement->setEncodingAttribute($encodingAttributeValue);
-    }
-
-    if ($pointAttributeValue) {
-      $dateCreatedSubelement->setPointAttribute($pointAttributeValue);
-    }
-
-    if ($keyDateAttributeValue) {
-      $dateCreatedSubelement->setKeyDateAttribute($keyDateAttributeValue);
-    }
-
-    if ($qualifierAttributeValue) {
-      $dateCreatedSubelement->setQualifierAttribute($qualifierAttributeValue);
-    }
-
-    return $dateCreatedSubelement;
-  }
-
-  */
 
 }
