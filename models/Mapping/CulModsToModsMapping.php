@@ -254,6 +254,19 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
   
   }
 
+  protected function _mapCulModsCollection(Item $item)
+  {
+    $culModsCollection = metadata($item, array('MODS', 'Collection'), array('all' => true));
+
+    foreach ($culModsCollection as $collection) {
+      $modsRelatedItem = $this->_node->appendChild(new Mods_RelatedItem());
+      $modsRelatedItem->setTypeAttribute('host');
+      $modsRelatedItem->setDisplayLabelAttribute('Collection');
+      $modsRelatedItem->addTitleInfo($collection);
+    }
+    
+  }
+
   protected function _map(Item $item)
   {
 
@@ -283,6 +296,7 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     $this->_mapCulModsPhysicalDescription($item);
     $this->_mapCulModsFormGenre($item);
     $this->_mapItemTypeMetadataItemType($item);
+    $this->_mapCulModsCollection($item);
     
   }
 

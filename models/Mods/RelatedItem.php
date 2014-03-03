@@ -55,6 +55,13 @@ class Mods_RelatedItem extends Mods_ModsElementAbstract
     $this->setAttribute('type',$value);
     return $value;
   }
+  public function setDisplayLabelAttribute($value)
+  {
+    if ($value) {
+      $this->setAttribute('displayLabel',$value);
+    }
+    return $value;
+  }
 
   public function addTitleInfo($title)
   {
