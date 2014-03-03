@@ -281,6 +281,20 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
   
   }
 
+  protected function _mapAddtionalItemMetadataSpatialCoverage(Item $item)
+  {
+
+    $additionalItemMetadataSpatialCoverage = metadata($item,
+						      array('Additional Item Metadata', 'Spatial Coverage'),
+						      array('all' => true));
+
+    foreach ($additionalItemMetadataSpatialCoverage as $spatialCoverage) {
+      $modsSubject = $this->_node->appendChild(new Mods_Subject());
+      $modsSubject->addGeographic($spatialCoverage);
+    }
+  
+  }
+
   protected function _map(Item $item)
   {
 
@@ -312,6 +326,8 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     $this->_mapItemTypeMetadataItemType($item);
     $this->_mapCulModsCollection($item);
     $this->_mapAddtionalItemMetadataProvenance($item);
+    $this->_mapAddtionalItemMetadataSpatialCoverage($item);
+
   }
 
 }
