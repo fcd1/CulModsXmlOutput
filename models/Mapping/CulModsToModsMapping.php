@@ -295,6 +295,26 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
   
   }
 
+  // Probably not going to populate it with info retrieved from the item,
+  // but the item will be passed in as an argument just in case
+  protected function _createRelatedItemProject(Item $item)
+  {
+
+    $collectionObject = get_collection_for_item($item);
+
+    if (!$collectionObject) {
+      // no associated Omeka collection for this item
+      return null;
+    }
+
+    $modsRelatedItem = $this->_node->appendChild(new Mods_RelatedItem());
+    $modsRelatedItem->setTypeAttribute('host');
+    $modsRelatedItem->setDisplayLabelAttribute('Project');
+    //    $modsRelatedItem->addTitleInfo($collectionObject->name);
+    $modsRelatedItem->addTitleInfo(metadata($collectionObject,array('Dublin Core','Title')));
+
+  }
+
   protected function _map(Item $item)
   {
 
@@ -327,6 +347,7 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     $this->_mapCulModsCollection($item);
     $this->_mapAddtionalItemMetadataProvenance($item);
     $this->_mapAddtionalItemMetadataSpatialCoverage($item);
+    $this->_createRelatedItemProject($item);
 
   }
 
