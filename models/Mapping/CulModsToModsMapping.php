@@ -216,7 +216,7 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
       $typeOfResourceContent = 'moving image';
       break;
     case "Oral History":
-      $typeOfResourceContent = 'mixed media';
+      $typeOfResourceContent = 'mixed material';
       break;
     case "Sound":
       $typeOfResourceContent = 'sound recording';
@@ -228,13 +228,13 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
       $typeOfResourceContent = 'still image';
       break;
     case "Event":
-      $typeOfResourceContent = 'mixed media';
+      $typeOfResourceContent = 'mixed material';
       break;
     case "Email":
       $typeOfResourceContent = 'text';
       break;
     case "Lesson Plan":
-      $typeOfResourceContent = 'mixed media';
+      $typeOfResourceContent = 'mixed material';
       break;
     case "Hyperlink":
       $typeOfResourceContent = 'text';
