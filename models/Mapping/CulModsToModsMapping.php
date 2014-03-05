@@ -79,6 +79,10 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     // $culModsKeyDate = metadata($item, array('MODS', 'Key Date'), array('all' => true));
     $culModsKeyDate = metadata($item, array('MODS', 'Key Date'));
 
+    if (!$culModsKeyDate) {
+      return null;
+    }
+
     // Check to see if we alread have an originInfo
     // fcd1, 02/28/14:
     // Check wiht Melanie and Robbie to make sure we don't want this in a 
