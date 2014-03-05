@@ -188,21 +188,12 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
   protected function _mapItemTypeMetadataItemType(Item $item)
   {
 
-    // $itemType = metadata($item, array('Item Type Metadata', 'Item Type'));
-    // $itemType = $item->Type[0];
-    // $itemType = 'foo';
-    $resultsArray = array();
+    if (!($item->Type)) {
+      return null;
+    }
 
-    // fcd1, 02/28/14 BEGIN =>
-    // Got the following piece of code form the Modsoutput
-    // plugin. Why it works I'm not sure, but it does, and I 
-    // have not yet figured out a better way. If I can't, I
-    // should move this to a helper method
-    foreach($item->Type as $itemType)
-      $resultsArray[] = $itemType;
-    $itemType =  $resultsArray[0];
-    // <= END 02/28/14, fcd1
-
+    $itemType = $item->Type->name;
+    
     // fcd1, 02/28/14:
     // May want to give it a default allowed value. However, the
     // possible input values for $itemType are preset, so as long
@@ -250,6 +241,8 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     case "Interactive Resource":
       $typeOfResourceContent = 'software, multimedia';
       break;
+    default:
+
     }
 
     if ($typeOfResourceContent) {
