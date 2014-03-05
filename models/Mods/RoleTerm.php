@@ -19,9 +19,7 @@ class Mods_RoleTerm extends Mods_ModsElementAbstract
 	 &&
 	 ($value !== 'code') )
       {
-	// for now, just return null.
-	// later, may want to add mechanism (exception?)
-	// to notify caller that value was invalid
+	$this->_reportAttributeError('type',"Invalid value: $value");
 	return null;
       }
 

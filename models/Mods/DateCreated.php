@@ -16,9 +16,7 @@ class Mods_DateCreated extends Mods_ModsElementAbstract
 	 &&
 	 ($value !== 'marc') )
       {
-	// for now, just return null.
-	// later, may want to add mechanism (exception?)
-	// to notify caller that value was invalid
+	$this->_reportAttributeError('encoding',"Invalid value: $value");
 	return null;
       }
 
@@ -34,9 +32,7 @@ class Mods_DateCreated extends Mods_ModsElementAbstract
 	 &&
 	 ($value !== 'end') )
       {
-	// for now, just return null.
-	// later, may want to add mechanism (exception?)
-	// to notify caller that value was invalid
+	$this->_reportAttributeError('point',"Invalid value: $value");
 	return null;
       }
 
@@ -50,9 +46,7 @@ class Mods_DateCreated extends Mods_ModsElementAbstract
     // be set to the following values
     if ($value !== 'yes')
       {
-	// for now, just return null.
-	// later, may want to add mechanism (exception?)
-	// to notify caller that value was invalid
+	$this->_reportAttributeError('keyDate',"Invalid value: $value");
 	return null;
       }
 
@@ -70,9 +64,7 @@ class Mods_DateCreated extends Mods_ModsElementAbstract
 	 &&
 	 ($value !== 'questionable') )
       {
-	// for now, just return null.
-	// later, may want to add mechanism (exception?)
-	// to notify caller that value was invalid
+	$this->_reportAttributeError('qualifier',"Invalid value: $value");
 	return null;
       }
 

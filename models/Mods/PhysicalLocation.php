@@ -24,9 +24,7 @@ class Mods_PhysicalLocation extends Mods_ModsElementAbstract
 	 &&
 	 ($value !== 'code') )
       {
-	// for now, just return null.
-	// later, may want to add mechanism (exception?)
-	// to notify caller that value was invalid
+	$this->_reportAttributeError('type',"Invalid value: $value");
 	return null;
       }
 
@@ -46,9 +44,7 @@ class Mods_PhysicalLocation extends Mods_ModsElementAbstract
 	 &&
 	 ($value !== 'rfc4646') )
       {
-	// for now, just return null.
-	// later, may want to add mechanism (exception?)
-	// to notify caller that value was invalid
+	$this->_reportAttributeError('authority',"Invalid value: $value");
 	return null;
       }
 

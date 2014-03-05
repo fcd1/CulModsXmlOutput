@@ -11,9 +11,6 @@ class Mods_Url extends Mods_ModsElementAbstract
     parent::__construct('url',$content);
   }
 
-  // fcd1, 02/27/14:
-  // Not tested, so comment out
-  /*
   public function setAccessAttribute($value)
   {
     // access attribute for the url element can only
@@ -24,15 +21,13 @@ class Mods_Url extends Mods_ModsElementAbstract
 	 &&
 	 ($value !== 'object in context') )
       {
-	// for now, just return null.
-	// later, may want to add mechanism (exception?)
-	// to notify caller that value was invalid
+	$this->_reportAttributeError('Access',"Invalid value: $value");
 	return null;
       }
 
     $this->setAttribute('access',$value);
     return $value;
   }
-  */
+
 }
 

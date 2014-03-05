@@ -46,9 +46,7 @@ class Mods_RelatedItem extends Mods_ModsElementAbstract
 	 ($value !== 'isReferencedBy') )
 
       {
-	// for now, just return null.
-	// later, may want to add mechanism (exception?)
-	// to notify caller that value was invalid
+	$this->_reportAttributeError('type',"Invalid value: $value");
 	return null;
       }
 
