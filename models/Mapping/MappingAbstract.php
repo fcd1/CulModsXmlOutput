@@ -42,9 +42,9 @@ abstract class Mapping_MappingAbstract
   protected function _generatePreambleComment()
   {
      $preambleComment =
-       'Hello,'.PHP_EOL;
+       'Columbia University.'.PHP_EOL;
      $preambleComment .=
-       'Fred:'.PHP_EOL;
+       'Following MODS output created via the CulModsXmlOutput running on Omeka server.'.PHP_EOL;
      return $preambleComment;
 
   }
