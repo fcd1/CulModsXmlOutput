@@ -26,23 +26,13 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
   // The DLF/Aquifer Implementation Guidelines lists recordInfo as non-repeatable
   protected $_recordInfo;
 
-  public function __construct($context,
-                              $onlyOneItem)
+  public function __construct()
   {
     $this->_originInfo = null;
     $this->_physicalDescription = null;
     $this->_location = null;
     $this->_recordInfo = null;
-    parent::__construct($context, $onlyOneItem);
-  }
-
-  protected function _reset() {
-
-    $this->_originInfo = null;
-    $this->_physicalDescription = null;
-    $this->_location = null;
-    $this->_recordInfo = null;
-
+    parent::__construct();
   }
 
   protected function _mapDCTitle(Item $item)
@@ -296,7 +286,7 @@ class Mapping_LocDCToModsMapping extends Mapping_MappingAbstract
     }
     */
 
-    $this->_createModsElement();
+    // $this->_createModsElement();
 
     $this->_mapDCTitle($item);
     $this->_mapDCCreator($item);

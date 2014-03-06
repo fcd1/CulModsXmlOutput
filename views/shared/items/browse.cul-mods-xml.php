@@ -1,10 +1,9 @@
 <?php
-
-$modsMap = new Mapping_CulModsToModsMapping('collection', false);
+$modsDoc = new Mapping_ModsDomDocument('collection');
 
 foreach ($items as $item) {
-  $modsMap->map($item);
+  $modsDoc->appendModsElement($item, new Mapping_CulModsToModsMapping());
 }
 
-echo $modsMap->getDoc()->saveXML();
+echo $modsDoc->getDoc()->saveXML();
 ?>

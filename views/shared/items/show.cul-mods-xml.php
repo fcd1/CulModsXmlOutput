@@ -1,9 +1,5 @@
 <?php
-  //$modsMap = new Mapping_LocDCToModsMapping($item, 'item',true);
-  //$modsMap = new Mapping_TestCulModsToModsMapping($item, 'item',true);
-  $modsMap = new Mapping_CulModsToModsMapping('item',true);
-$modsMap->map($item);
-
-
-echo $modsMap->getDoc()->saveXML();
+$modsDoc = new Mapping_ModsDomDocument('item');
+$modsDoc->appendModsElement($item, new Mapping_CulModsToModsMapping());
+echo $modsDoc->getDoc()->saveXML();
 ?>

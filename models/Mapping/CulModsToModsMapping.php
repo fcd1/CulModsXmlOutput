@@ -8,6 +8,7 @@
 class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
 {
 
+  /*
   protected function _reset() {
 
     // no-op, since this object does not store any state
@@ -15,7 +16,7 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
     parent::_reset();
 
   }
-
+  */
   protected function _mapCulModsDigitalOrigin(Item $item)
   {
     $culModsDigitalOrigin = metadata($item, array('MODS', 'Digital Origin'), array('all' => true));
@@ -359,19 +360,10 @@ class Mapping_CulModsToModsMapping extends Mapping_LocDCToModsMapping
 
   }
 
-  public function map(Item $item)
+  public function mapItem(Item $item,Mods_ModsElementAbstract &$modsElement)
   {
 
-    /*
-    if ($this->_modsCollection) {
-      $this->_node = $this->_modsCollection->appendChild(new Mods_Mods());
-    } else {
-      $this->_node = $this->_doc->appendChild(new Mods_Mods());
-    }
-    */
-
-    $this->_createModsElement();
-
+    $this->_node = $modsElement;
     $this->_createRecordInfo($item);
     $this->_mapOmekaItemId($item);
     $this->_mapDCTitle($item);
