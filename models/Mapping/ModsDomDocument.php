@@ -65,9 +65,13 @@ class Mapping_ModsDomDocument
   protected function _generatePreambleComment()
   {
      $preambleComment =
-       'Columbia University.'.PHP_EOL;
+       'Columbia University Libraries' . PHP_EOL;
      $preambleComment .=
-       'Following MODS output created via the CulModsXmlOutput running on Omeka server.'.PHP_EOL;
+       'Following MODS output created by the CulModsXmlOutput plugin' . PHP_EOL . 
+       'running on the following Omeka server:' . PHP_EOL . 
+       option('site_title') . PHP_EOL;
+     $preambleComment .=
+       'Date: ' . date('Y-m-d H:i:s');
      return $preambleComment;
 
   }
